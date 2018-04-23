@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>QUANTITATIVE AESTHETICS | Guernica</title>
+
+  <style type="text/css">
+  html, body {
+    background-color: #000;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #slideshow {
+    align-self: center;
+    text-align: center;
+    position: relative;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 256px;
+    height: 256px;
+  }
+  #slideshow > div {
+	position: absolute;
+	left: 0;
+	top: 0;
+	align-self: center
+	text-align: center;
+  }
+  #slideshow > image {
+    width: 256px;
+    height: 256px;
+  }
+  button {
+  	font-size: 32px;
+  	height: 48px;
+  	margin-top: 64px;
+  	border-radius: 8px;
+  }
+  </style>
+
+
+</head>
+
+<body>
+
+  <div id="slideshow">
+  	<button onClick="addImages()" id="start">Start</button>
+  </div>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+
+  <script>
+  // runs slideshow
+  var counter = 0;
+
+  function runSlideshow() {
+  	var slideshow = setInterval(function() {
+		$('#slideshow > div:first')
+	      .next()
+	      .fadeIn(150)
+	      .end()
+	      .fadeOut(150)
+	      .appendTo('#slideshow');
+	   	
+	  	console.log(counter);
+	   	counter++;
+	  	if(counter > 200) { clearInterval(slideshow) };
+	}, 3000);
+  }
+
+  // Add images
+  function addImages() {
+  	console.log("adding images");
+  	for (var i = 0; i < 200; i++) {
+	    var image = '<div id="image' + i + '"><img src="images/Guernica_crop_' + i + '.jpg" border="0" /></div>';
+	    $(image).hide().appendTo("#slideshow");
+	    console.log("added image ", i);
+	}
+  }
+
+  // button starts the show
+  $("#start").on("click", addImages, function() {
+  	$(this).remove();
+  	runSlideshow();
+  });
+</script>
+
+
+</body>
+</html>
